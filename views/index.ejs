@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo List - Estágio</title>
+
+    <link rel="stylesheet" href="/style.css">
+    <link rel="shortcut icon" href="./imagens/icon.png" type="image/x-icon">
+
+</head>
+<body>
+    <div id="header">
+        <a href="https://www.itgest.pt/" target="_blank"><img src="/imagens/logo-1.png" alt="Logo da empresa" style="margin-top: 20px; margin-left: 30px;"  id="image-logo"></a>
+        <a href="#" class="link"  id="login-btn" onclick="abrirLogin()">Login</a>
+        <a href="#" class="link"  id="registro-btn" onclick="abrirRegistro()">Registro</a>
+    </div>
+
+        <div class = "modal-back-L">
+            <div class="login-div">
+                <div class="form">
+                    <h2>Bem-vindo(a) de volta!</h2>
+                     <div id="container-btnL"></div>
+                    <hr>
+                    <form action="" method="post" class="form-R-L">
+                        <div style="margin-top: 65px;">
+                            <label for="user_id">E-mail:</label> <br>
+                                <input type="text" id="user_id" name="usuario" class="input-box" placeholder="Introduza seu e-mail" minlength="5" maxlength="60" required size="43"> 
+                                <hr style="width: 70%; margin: auto; margin-right: 150px; margin-left: 40px">
+                        </div>
+ 
+                        <div style="margin-top: 50px;">
+                            <label for="pass">Palavra-passe:</label> <br>
+                                <input type="password" name="senha" id="pass" class="input-box" placeholder="Introduza sua palavra-passe" minlength="4" maxlength="20" required size="43">
+                                <hr style="width: 70%; margin: auto; margin-right: 150px; margin-left: 40px;" > <!--style="width: 70%; margin: auto; margin-right: 150px;"-->
+                        </div>
+                        <button class="btn-registro">Entrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class = "modal-back">
+            <div class="registro-div">
+                <div class="form">
+                    <h2>Bem-vindo(a)!</h2>
+                     <div id="container-btn"></div>
+                    <hr>
+                    <form action="/save" method="post" class="form-R-L">
+                        <div style="margin-top: 65px;">
+                            <label for="user_id">E-mail:</label> <br>
+                                <input type="text" id="user_id" name="user" class="input-box" placeholder="Introduza seu e-mail" minlength="5" maxlength="60" required size="43"> 
+                                <hr style="width: 70%; margin: auto; margin-right: 150px; margin-left: 40px">
+                        </div>
+ 
+                        <div style="margin-top: 50px;">
+                            <label for="pass">Palavra-passe:</label> <br>
+                                <input type="password" name="password" id="pass" class="input-box" placeholder="Introduza sua palavra-passe" minlength="4" maxlength="20" required size="43">
+                                <hr style="width: 70%; margin: auto; margin-right: 150px; margin-left: 40px;" > <!--style="width: 70%; margin: auto; margin-right: 150px;"-->
+                        </div>
+                        <button class="btn-registro">Entrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    
+    <div class="container">
+
+        <div class="todo">
+            <h2>To-Do List <img src="/imagens/icon.png" alt="Icon"></h2>
+                <div class="linha">
+                    <form action="" method="post">
+                        <input type="text" id="input-box" name="input" placeholder="Adicione um texto" maxlength="35" size="40">
+                    </form>
+                    <button id = "btn" onclick="addTask()">Add</button>
+                </div>
+                <ul id="list-container">
+                   <!-- <li class="selected">Task 1</li>
+                    <li>Task 2</li>
+                    <li>Task 3</li> -->
+                </ul>
+        </div>
+    </div>
+    <script src="/btns.js"></script>
+    <script src="/script.js"></script>
+</body>
+</html>

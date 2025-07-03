@@ -1,0 +1,406 @@
+@charset "UTF-8";
+
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+
+.container{
+    width: 100%;
+    min-height: 90.3vh;
+    background: linear-gradient(135deg, #c2e59c, #64b3f4);
+    padding: 10px;
+    z-index: 18;
+}
+
+.todo{
+    width: 100%;
+    max-width: 550px;
+    background-color: white;
+    margin: 100px auto 20px;
+    padding: 40px 30px 70px;
+    border-radius: 10px;
+    z-index: 11;
+}
+
+.todo h2{
+    color: #000000 ;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.todo h2 img{
+    width: 30px;
+    margin-left: 10px;
+}
+
+.linha{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #c7c6c662;
+    border-radius: 30px;
+    padding-left: 20px;
+    margin-bottom: 25px;
+}
+
+/* Estilização do input e do botão */
+input#input-box{
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 10px;
+    font-weight: 14px;
+}
+
+button#btn{
+    border: none;
+    outline: none;
+    padding: 16px 45px;
+    background-color: rgb(0, 0, 0);
+    color: #fff;
+    font-size: 0.9em;
+    cursor: pointer;
+    border-radius: 40px;
+}
+
+ul li{
+    list-style: none;
+    font-size: 17px;
+    padding: 12px 8px 12px 50px;
+    user-select: none;
+    cursor: pointer;
+    position: relative;
+}
+
+ul li::before{
+    content: '';
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    background-image: url(./imagens/unchecked.png);
+    background-size: cover;
+    background-position: center;
+    top: 9px;
+    left: 8px;
+}
+
+ul li.selected{
+    color: #555;
+    text-decoration: line-through;
+}
+
+
+ul li.selected::before{
+    background-image: url(./imagens/checked.png);
+}
+
+ul li span{
+    position: absolute;
+    right: 0;
+    top: 5px;
+    width: 35px;
+    height: 35px;
+    font-size: 22px;
+    color: #555;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 50%;
+}
+
+/* Barrra de edição */
+.edit-input {
+    border: 2px solid #cecece;
+    border-radius: 30px;
+    padding: 5px;
+    font-size: 16px;
+    width: 63%;
+    background: white;
+    position: relative;
+    top: -5px;
+    left: 12px
+}
+
+ul li .edit-icon{
+    position: absolute;
+    top: 5px;
+    right: 50px
+}
+
+
+ul li .edit-btn {
+    position: absolute;
+    right: 45px;
+    top: 5px;
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+    color: #555;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Hovers */
+button#btn:hover{
+    background-color: rgba(0, 0, 0, 0.705);
+    transition: ease 0.3s;
+    transform: translate(0px, -1px);
+}
+
+ul li span:hover{
+    background: #edeef0;
+    transition: ease 0.2s;
+}
+
+/* Header */
+#header{
+    height: 57px;
+    min-width: 100%;
+    background: #ffffff35;
+    box-shadow: 1px 2px 20px rgba(0, 0, 0, 0.457);
+    position: relative;
+}
+
+#image-logo {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+#image-logo:hover {
+    transform: scale(1.05);
+    opacity: 0.8;
+}
+
+/* LOGIN */
+#login-btn{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    border: none;
+    outline: none;
+    padding: 10px 15px;
+    margin-right: 20px;
+    background: transparent;
+    color: #171717;
+    font-size: 1.15em;
+    cursor: pointer;
+    border-radius: 40px;
+    position: relative;
+    bottom: 17%;
+    left: 73%;
+}
+
+#registro-btn{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: #171717;
+    font-size: 1.15em;
+    border: none;
+    outline: none;
+    padding: 10px 15px;
+    margin-left: 10px;
+    margin-right: 30px;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 40px;
+    position: relative;
+    bottom: 17%;
+    left: 73%;
+}
+
+.link {
+    display: inline-block;
+    text-decoration: none;
+    margin-top: 5px;
+}
+
+.link::after{
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: rgb(91, 91, 91);
+    transition: width 0.3s ease;
+}
+
+.link:hover::after{
+    width: 100%;
+}
+
+/* Janela de REGISTRO */
+
+
+.login-div{
+    display: none;
+    width: 100%;
+    height: 450px;
+    max-height: 700px;
+    max-width: 550px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 1px 3px 16px rgba(0, 0, 0, 0.603);
+    border-radius: 8px;
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+}
+
+.registro-div{
+    display: none;
+    width: 100%;
+    height: 450px;
+    max-height: 700px;
+    max-width: 550px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 1px 3px 16px rgba(0, 0, 0, 0.603);
+    border-radius: 8px;
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+}
+
+
+.modal-back-L{
+    display: none; /* Escondido por padrão */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.685);
+    z-index: 10;
+}
+
+
+.modal-back{
+    display: none; /* Escondido por padrão */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.685);
+    z-index: 10;
+}
+
+/* FORMS */
+
+h2{
+    padding: 30px;
+    text-align: center;
+}
+
+.form-R-L{
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+input#user_id{
+    color: #000000;
+    background: transparent; /*cor: rgba(179, 178, 178, 0.372)*/
+    padding: 12px 20px;
+    /*border: 1px solid rgb(58, 58, 58);*/
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    margin-left: 38px; /*20px*/
+    background-image: url(/imagens/user.png);
+    background-repeat: no-repeat;
+    background-position: left;
+}
+
+input#pass{
+    color: #000000;
+    background: transparent; 
+    padding: 12px 20px;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    margin-left: 38px;
+    background-image: url(/imagens/cadeado.png);
+    background-repeat: no-repeat;
+    background-position: left;
+}
+
+label{
+    font-weight: bolder;
+    padding: 16px 38px; 
+}
+
+.btn-registro{
+    border-style: none;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 24px;
+    min-width: 480px;
+    width: calc(100% - 76px);
+    max-width: 25vw;
+    border-radius: 8px;
+    background: #55555538;
+    border: 1px solid black;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /*border-style: none;
+    position: fixed;
+    top: 87%;
+    right: 6%;
+    padding: 10px 50px;
+    width: 25vw;
+    border-radius: 8px;
+    background: #55555538;
+    border: 1px solid black;*/
+}
+
+.btn-registro:hover{
+    background: #5555555c;
+    
+    transition: ease 0.3s;
+}
+
+/* closebtn */
+
+#container-btnL{
+    position: fixed;
+    top: 3%;
+    right: 3%;
+}
+
+#container-btn{
+    position: fixed;
+    top: 3%;
+    right: 3%;
+}
+.close-btn{
+    float: right;
+    cursor: pointer;
+    font-size: 24px;
+    color: #595959;
+    padding: 1px 7px;
+    border-radius: 50%;
+    z-index: 21;
+}
+
+.close-btn:hover{
+    background: rgba(142, 141, 141, 0.388);
+    transition: ease 0.3s;
+}
+
+
+
+
+
+
+
