@@ -50,4 +50,3 @@ closeBtn.onclick = function () {
 
 containerBtn.appendChild(closeBtn);
 
-

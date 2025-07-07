@@ -50,25 +50,26 @@
 }
 
 /* Estilização do input e do botão */
-input#input-box{
+input#input-todo{
     flex: 1;
     border: none;
     outline: none;
     background: transparent;
     padding: 10px;
-    font-weight: 14px;
+    font-weight: 400    ;
 }
 
 button#btn{
     border: none;
     outline: none;
-    padding: 16px 45px;
+    padding: 16px 48px;
     background-color: rgb(0, 0, 0);
     color: #fff;
     font-size: 0.9em;
     cursor: pointer;
     border-radius: 40px;
 }
+
 
 ul li{
     list-style: none;
@@ -123,9 +124,10 @@ ul li span{
     font-size: 16px;
     width: 63%;
     background: white;
+    margin-right: 50px;
     position: relative;
     top: -5px;
-    left: 12px
+    left: 12px;
 }
 
 ul li .edit-icon{
@@ -398,9 +400,112 @@ label{
     transition: ease 0.3s;
 }
 
+.task-title {
+    background: none;
+    user-select: none;
+    cursor: pointer;
+    font-size: 17px;
+    line-height: 1.4;
+    color: #000; /* cor padrão */
+    position: relative;
+    top: 10%;
+    z-index: 1; 
+}
 
+@media (min-width: 1290px){
+    input#input-todo{
+        padding: 3px;
+    }
 
+    .container{
+        height: 94vh;
+    }
+}
 
+@media (max-width: 768px) {
 
+    .container{
+        height: 100vh;
+    }
 
+    .todo {
+        padding: 20px 15px 50px;
+    }
 
+    .linha {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 10px;
+    }
+
+    input#input-todo {
+        width: 100%;
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+
+    button#btn {
+        width: 100%;
+        padding: 14px 40px;
+        font-size: 1em;
+    }
+
+    ul li {
+        font-size: 15px;
+        padding: 12px 8px 12px 45px;
+    }
+
+    .edit-input {
+        width: 70%;
+        font-size: 14px;
+    }
+
+    #login-btn{
+        font-size: 1.1em;
+        padding: 8px 12px;
+        left: 0;
+        margin: 10px;
+        position: absolute;
+        top: 3%;
+        left: 50%;
+        margin-bottom: 2px;
+    }
+
+    #registro-btn {
+        font-size: 1.1em;
+        padding: 8px 12px;
+        left: 0;
+        margin: 10px;
+        position: absolute;
+        top: 3%;
+        left: 70%;
+        margin-bottom: 2px;
+    }
+
+    .login-div,
+    .registro-div {
+        width: 90%;
+        height: auto;
+        padding-bottom: 30px;
+    }
+
+    .btn-registro {
+        min-width: unset;
+        min-width: 70%;
+        font-size: 1em;
+        position: absolute;
+        top: 87%;
+        padding-bottom: 28px;
+    }
+
+    #container-btn,
+    #container-btnL {
+        top: 10px;
+        right: 10px;
+    }
+
+    h2 {
+        padding: 15px;
+        font-size: 1.2em;
+    }
+}

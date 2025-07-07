@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,8 +12,12 @@
 <body>
     <div id="header">
         <a href="https://www.itgest.pt/" target="_blank"><img src="/imagens/logo-1.png" alt="Logo da empresa" style="margin-top: 20px; margin-left: 30px;"  id="image-logo"></a>
-        <a href="#" class="link"  id="login-btn" onclick="abrirLogin()">Login</a>
-        <a href="#" class="link"  id="registro-btn" onclick="abrirRegistro()">Registro</a>
+        <% if (user) { %>
+            <a href="/logout" class="link" id="registro-btn">Logout</a>
+        <% } else { %>
+            <a href="#" class="link" id="login-btn" onclick="abrirLogin()">Login</a>
+            <a href="#" class="link" id="registro-btn" onclick="abrirRegistro()">Registro</a>
+        <% } %>
     </div>
 
         <div class = "modal-back-L">
@@ -22,10 +26,11 @@
                     <h2>Bem-vindo(a) de volta!</h2>
                      <div id="container-btnL"></div>
                     <hr>
-                    <form action="" method="post" class="form-R-L">
+                    <form action="/login" method="post" class="form-R-L">
                         <div style="margin-top: 65px;">
                             <label for="user_id">E-mail:</label> <br>
                                 <input type="text" id="user_id" name="usuario" class="input-box" placeholder="Introduza seu e-mail" minlength="5" maxlength="60" required size="43"> 
+                                
                                 <hr style="width: 70%; margin: auto; margin-right: 150px; margin-left: 40px">
                         </div>
  
@@ -69,18 +74,23 @@
         <div class="todo">
             <h2>To-Do List <img src="/imagens/icon.png" alt="Icon"></h2>
                 <div class="linha">
-                    <form action="" method="post">
-                        <input type="text" id="input-box" name="input" placeholder="Adicione um texto" maxlength="35" size="40">
+                    <form id="task-form" action="/tasks/add" method="post">
+                        <input type="text" id="input-todo" name="input" placeholder="Adicione um texto" maxlength="35" size="44">
+                        <button type="submit"  id = "btn">Add</button>
                     </form>
-                    <button id = "btn" onclick="addTask()">Add</button>
                 </div>
-                <ul id="list-container">
-                   <!-- <li class="selected">Task 1</li>
-                    <li>Task 2</li>
-                    <li>Task 3</li> -->
-                </ul>
+            <ul id="list-container">
+                <% tasks.forEach(task => { %>
+                    <li data-id="<%= task.id %>" class="<%= task.done ? 'selected' : '' %>">
+                        <span class="task-title"><%= task.title %></span>
+                        <span class="edit-btn">✎</span>
+                        <span class="delete-btn">&times;</span>
+                    </li>
+                <% }) %>
+            </ul>
         </div>
     </div>
+    <script src="/tasks.js"></script>
     <script src="/btns.js"></script>
     <script src="/script.js"></script>
 </body>
