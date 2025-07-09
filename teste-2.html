@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow - Gerenciador de Tarefas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #6366f1;
+            --primary-hover: #5855eb;
+            --secondary-color: #f8fafc;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --border-color: #e2e8f0;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --warning-color: #f59e0b;
+            --background: #f1f5f9;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --card-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --header-height: 70px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-top: var(--header-height);
+        }
+
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-height);
+            background: white;
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a.active {
+            color: var(--primary-color);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--primary-color);
+            border-radius: 1px;
+        }
+
+        .auth-buttons {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-secondary {
+            padding: 10px 20px;
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-secondary:hover {
+            background: var(--secondary-color);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-primary {
+            padding: 10px 20px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-btn:hover {
+            background: var(--secondary-color);
+            color: var(--primary-color);
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            width: 100%;
+            max-width: 400px;
+            margin: 20px;
+            box-shadow: var(--card-shadow-hover);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .modal-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .modal-header p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .btn-full {
+            flex: 1;
+            padding: 12px;
+            font-size: 1rem;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: var(--secondary-color);
+            color: var(--text-secondary);
+        }
+
+        .divider {
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--border-color);
+            z-index: -1;
+        }
+
+        .divider span {
+            background: white;
+            padding: 0 16px;
+        }
+
+        .social-login {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .social-btn {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            background: white;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .social-btn:hover {
+            border-color: var(--primary-color);
+            background: var(--secondary-color);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .main-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .main-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .main-header .icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .main-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+
+        .todo-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .todo-card:hover {
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .input-section {
+            padding: 32px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .input-container {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .input-wrapper {
+            flex: 1;
+            position: relative;
+        }
+
+        #input-box {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 400;
+            background: var(--secondary-color);
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        #input-box:focus {
+            border-color: var(--primary-color);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        #input-box::placeholder {
+            color: var(--text-muted);
+        }
+
+        .add-btn {
+            padding: 16px 24px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 120px;
+            justify-content: center;
+        }
+
+        .add-btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        }
+
+        .add-btn:active {
+            transform: translateY(0);
+        }
+
+        .tasks-section {
+            padding: 0;
+        }
+
+        .tasks-header {
+            padding: 24px 32px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .tasks-count {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .clear-completed {
+            background: none;
+            border: none;
+            color: var(--danger-color);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .clear-completed:hover {
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        #list-container {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .task-item {
+            padding: 20px 32px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .task-item:hover {
+            background: var(--secondary-color);
+        }
+
+        .task-item:last-child {
+            border-bottom: none;
+        }
+
+        .task-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .task-item.completed .task-checkbox {
+            background: var(--success-color);
+            border-color: var(--success-color);
+            color: white;
+        }
+
+        .task-text {
+            flex: 1;
+            font-size: 1rem;
+            font-weight: 400;
+            transition: all 0.3s ease;
+        }
+
+        .task-item.completed .task-text {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .task-item:hover .task-actions {
+            opacity: 1;
+        }
+
+        .action-btn {
+            width: 32px;
+            height: 32px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .edit-btn {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning-color);
+        }
+
+        .edit-btn:hover {
+            background: rgba(245, 158, 11, 0.2);
+        }
+
+        .delete-btn {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger-color);
+        }
+
+        .delete-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+        }
+
+        .edit-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            background: white;
+        }
+
+        .empty-state {
+            padding: 60px 32px;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .empty-state .icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+
+        .empty-state p {
+            font-size: 0.9rem;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 32px;
+            background: var(--secondary-color);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stat-number {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links,
+            .auth-buttons {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .header-container {
+                padding: 0 16px;
+            }
+
+            .container {
+                padding: 20px 16px;
+            }
+
+            .main-header h1 {
+                font-size: 2rem;
+            }
+
+            .input-container {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .add-btn {
+                width: 100%;
+            }
+
+            .input-section,
+            .tasks-header,
+            .task-item,
+            .stats {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+
+            .modal {
+                margin: 16px;
+                padding: 24px;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-out {
+            animation: slideOut 0.3s ease-out forwards;
+        }
+
+        @keyframes slideOut {
+            to {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">T</div>
+                <span class="logo-text">TaskFlow</span>
+            </a>
+
+            <nav class="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="#" class="active">Tarefas</a></li>
+                    <li><a href="#">Projetos</a></li>
+                    <li><a href="#">Equipe</a></li>
+                    <li><a href="#">Relatórios</a></li>
+                </ul>
+
+                <div class="auth-buttons">
+                    <button class="btn-secondary" onclick="openModal('login')">Entrar</button>
+                    <button class="btn-primary" onclick="openModal('register')">Cadastrar</button>
+                </div>
+            </nav>
+
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </header>
+
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal">
+            <button class="close-btn" onclick="closeModal('login')">&times;</button>
+            <div class="modal-header">
+                <h2>Bem-vindo de volta!</h2>
+                <p>Entre na sua conta para continuar</p>
+            </div>
+
+            <div class="social-login">
+                <button class="social-btn">
+                    <span>G</span> Google
+                </button>
+                <button class="social-btn">
+                    <span>f</span> Facebook
+                </button>
+            </div>
+
+            <div class="divider">
+                <span>ou</span>
+            </div>
+
+            <form>
+                <div class="form-group">
+                    <label for="loginEmail">E-mail</label>
+                    <input type="email" id="loginEmail" class="form-input" placeholder="seu@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPassword">Senha</label>
+                    <input type="password" id="loginPassword" class="form-input" placeholder="••••••••">
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary btn-full" onclick="closeModal('login')">Cancelar</button>
+                    <button type="submit" class="btn-primary btn-full">Entrar</button>
+                </div>
+            </form>
+
+            <div style="text-align: center; margin-top: 20px; font-size: 0.9rem; color: var(--text-secondary);">
+                Não tem uma conta? 
+                <a href="#" onclick="switchModal('login', 'register')" style="color: var(--primary-color); text-decoration: none;">Cadastre-se</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal-overlay" id="registerModal">
+        <div class="modal">
+            <button class="close-btn" onclick="closeModal('register')">&times;</button>
+            <div class="modal-header">
+                <h2>Criar conta</h2>
+                <p>Comece a organizar suas tarefas hoje</p>
+            </div>
+
+            <div class="social-login">
+                <button class="social-btn">
+                    <span>G</span> Google
+                </button>
+                <button class="social-btn">
+                    <span>f</span> Facebook
+                </button>
+            </div>
+
+            <div class="divider">
+                <span>ou</span>
+            </div>
+
+            <form>
+                <div class="form-group">
+                    <label for="registerName">Nome completo</label>
+                    <input type="text" id="registerName" class="form-input" placeholder="Seu nome">
+                </div>
+
+                <div class="form-group">
+                    <label for="registerEmail">E-mail</label>
+                    <input type="email" id="registerEmail" class="form-input" placeholder="seu@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="registerPassword">Senha</label>
+                    <input type="password" id="registerPassword" class="form-input" placeholder="••••••••">
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirmar senha</label>
+                    <input type="password" id="confirmPassword" class="form-input" placeholder="••••••••">
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary btn-full" onclick="closeModal('register')">Cancelar</button>
+                    <button type="submit" class="btn-primary btn-full">Cadastrar</button>
+                </div>
+            </form>
+
+            <div style="text-align: center; margin-top: 20px; font-size: 0.9rem; color: var(--text-secondary);">
+                Já tem uma conta? 
+                <a href="#" onclick="switchModal('register', 'login')" style="color: var(--primary-color); text-decoration: none;">Entre aqui</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="main-header">
+            <h1>
+                <div class="icon">✓</div>
+                Organize suas tarefas
+            </h1>
+            <p>Gerencie seus projetos de forma profissional e eficiente</p>
+        </div>
+
+        <div class="todo-card">
+            <div class="input-section">
+                <div class="input-container">
+                    <div class="input-wrapper">
+                        <input type="text" id="input-box" placeholder="Digite uma nova tarefa...">
+                    </div>
+                    <button class="add-btn" onclick="addTask()">
+                        <span>+</span>
+                        Adicionar
+                    </button>
+                </div>
+            </div>
+
+            <div class="tasks-section">
+                <div class="tasks-header">
+                    <span class="tasks-count" id="tasks-count">0 tarefas</span>
+                    <button class="clear-completed" onclick="clearCompleted()">Limpar concluídas</button>
+                </div>
+                
+                <ul id="list-container"></ul>
+                
+                <div class="empty-state" id="empty-state">
+                    <div class="icon">📝</div>
+                    <h3>Nenhuma tarefa ainda</h3>
+                    <p>Adicione sua primeira tarefa para começar</p>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <span>Total:</span>
+                    <span class="stat-number" id="total-count">0</span>
+                </div>
+                <div class="stat-item">
+                    <span>Pendentes:</span>
+                    <span class="stat-number" id="pending-count">0</span>
+                </div>
+                <div class="stat-item">
+                    <span>Concluídas:</span>
+                    <span class="stat-number" id="completed-count">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const inputBox = document.getElementById("input-box");
+        const listContainer = document.getElementById("list-container");
+        const emptyState = document.getElementById("empty-state");
+        const tasksCount = document.getElementById("tasks-count");
+        const totalCount = document.getElementById("total-count");
+        const pendingCount = document.getElementById("pending-count");
+        const completedCount = document.getElementById("completed-count");
+
+        let taskIdCounter = 0;
+
+        // Modal Functions
+        function openModal(type) {
+            const modal = document.getElementById(type + 'Modal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(type) {
+            const modal = document.getElementById(type + 'Modal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function switchModal(from, to) {
+            closeModal(from);
+            setTimeout(() => openModal(to), 300);
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal-overlay')) {
+                e.target.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const activeModal = document.querySelector('.modal-overlay.active');
+                if (activeModal) {
+                    activeModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            }
+        });
+
+        // Task Functions
+        function addTask() {
+            const taskText = inputBox.value.trim();
+            
+            if (taskText === '') {
+                inputBox.focus();
+                inputBox.style.borderColor = '#ef4444';
+                setTimeout(() => {
+                    inputBox.style.borderColor = '';
+                }, 2000);
+                return;
+            }
+
+            const li = document.createElement("li");
+            li.className = "task-item fade-in";
+            li.dataset.id = ++taskIdCounter;
+            
+            li.innerHTML = `
+                <div class="task-checkbox">
+                    <span style="display: none;">✓</span>
+                </div>
+                <span class="task-text">${taskText}</span>
+                <div class="task-actions">
+                    <button class="action-btn edit-btn" onclick="editTask(this)" title="Editar">
+                        ✎
+                    </button>
+                    <button class="action-btn delete-btn" onclick="deleteTask(this)" title="Excluir">
+                        ×
+                    </button>
+                </div>
+            `;
+
+            listContainer.appendChild(li);
+            inputBox.value = "";
+            inputBox.focus();
+            
+            updateStats();
+            updateEmptyState();
+        }
+
+        function toggleTask(element) {
+            const taskItem = element.closest('.task-item');
+            const checkbox = taskItem.querySelector('.task-checkbox span');
+            
+            taskItem.classList.toggle('completed');
+            
+            if (taskItem.classList.contains('completed')) {
+                checkbox.style.display = 'block';
+            } else {
+                checkbox.style.display = 'none';
+            }
+            
+            updateStats();
+        }
+
+        function editTask(button) {
+            const taskItem = button.closest('.task-item');
+            const taskText = taskItem.querySelector('.task-text');
+            const currentText = taskText.textContent;
+            
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'edit-input';
+            input.value = currentText;
+            
+            taskText.replaceWith(input);
+            input.focus();
+            input.select();
+            
+            function saveEdit() {
+                const newText = input.value.trim();
+                const newTaskText = document.createElement('span');
+                newTaskText.className = 'task-text';
+                newTaskText.textContent = newText || currentText;
+                
+                input.replaceWith(newTaskText);
+            }
+            
+            input.addEventListener('blur', saveEdit);
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    saveEdit();
+                }
+                if (e.key === 'Escape') {
+                    const newTaskText = document.createElement('span');
+                    newTaskText.className = 'task-text';
+                    newTaskText.textContent = currentText;
+                    input.replaceWith(newTaskText);
+                }
+            });
+        }
+
+        function deleteTask(button) {
+            const taskItem = button.closest('.task-item');
+            taskItem.classList.add('slide-out');
+            
+            setTimeout(() => {
+                taskItem.remove();
+                updateStats();
+                updateEmptyState();
+            }, 300);
+        }
+
+        function clearCompleted() {
+            const completedTasks = document.querySelectorAll('.task-item.completed');
+            completedTasks.forEach(task => {
+                task.classList.add('slide-out');
+                setTimeout(() => {
+                    task.remove();
+                    updateStats();
+                    updateEmptyState();
+                }, 300);
+            });
+        }
+
+        function updateStats() {
+            const allTasks = document.querySelectorAll('.task-item');
+            const completedTasks = document.querySelectorAll('.task-item.completed');
+            const pendingTasks = allTasks.length - completedTasks.length;
+            
+            totalCount.textContent = allTasks.length;
+            completedCount.textContent = completedTasks.length;
+            pendingCount.textContent = pendingTasks;
+            
+            tasksCount.textContent = `${allTasks.length} ${allTasks.length === 1 ? 'tarefa' : 'tarefas'}`;
+        }
+
+        function updateEmptyState() {
+            const hasTasks = listContainer.children.length > 0;
+            emptyState.style.display = hasTasks ? 'none' : 'block';
+        }
+
+        // Event listeners
+        listContainer.addEventListener('click', function(e) {
+            if (e.target.closest('.task-checkbox')) {
+                toggleTask(e.target);
+            }
+        });
+
+        inputBox.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addTask();
+            }
+        });
+
+        // Prevent form submission in modals (since they're just for show)
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Here you would normally handle the login/register logic
+                alert('Esta é apenas uma demonstração. A funcionalidade de login/registro não está implementada.');
+            });
+        });
+
+        // Initialize
+        updateEmptyState();
+        updateStats();
+    </script>
+</body>
+</html>

@@ -30,7 +30,15 @@ closeBtnL.onclick = function () {
 containerBtnL.appendChild(closeBtnL);
 
 
-
+function TemConta(){
+  containerBtn.style.display = 'none';
+  containerForms.style.display = 'none';
+  modalBack.style.display = 'none'
+  
+  containerLogin.style.display = 'block';
+  modalBackL.style.display = 'block';
+  containerBtnL.style.display = 'block';
+}
 
 
 
@@ -50,3 +58,12 @@ closeBtn.onclick = function () {
 
 containerBtn.appendChild(closeBtn);
 
+function NaoTem(){
+  containerBtnL.style.display = 'none';
+  containerLogin.style.display = 'none';
+  modalBackL.style.display = 'none';
+
+  containerForms.style.display = 'block';
+  modalBack.style.display = 'block';
+  containerBtn.style.display = 'block';
+}

@@ -68,6 +68,7 @@ button#btn{
     font-size: 0.9em;
     cursor: pointer;
     border-radius: 40px;
+    transition: all 0.3s; /*(saída e entrada)*/
 }
 
 
@@ -114,6 +115,7 @@ ul li span{
     line-height: 40px;
     text-align: center;
     border-radius: 50%;
+    transition: all 0.2s;
 }
 
 /* Barrra de edição */
@@ -154,13 +156,12 @@ ul li .edit-btn {
 /* Hovers */
 button#btn:hover{
     background-color: rgba(0, 0, 0, 0.705);
-    transition: ease 0.3s;
+    box-shadow: 0px 5px 1rem #00000022;
     transform: translate(0px, -1px);
 }
 
 ul li span:hover{
     background: #edeef0;
-    transition: ease 0.2s;
 }
 
 /* Header */
@@ -192,7 +193,7 @@ ul li span:hover{
     color: #171717;
     font-size: 1.15em;
     cursor: pointer;
-    border-radius: 40px;
+    border-radius: 9px;
     position: relative;
     bottom: 17%;
     left: 73%;
@@ -242,7 +243,7 @@ ul li span:hover{
 .login-div{
     display: none;
     width: 100%;
-    height: 450px;
+    height: 480px;
     max-height: 700px;
     max-width: 550px;
     background-color: rgb(255, 255, 255);
@@ -257,8 +258,9 @@ ul li span:hover{
 
 .registro-div{
     display: none;
+    margin-top: 30px;
     width: 100%;
-    height: 450px;
+    height: 570px;
     max-height: 700px;
     max-width: 550px;
     background-color: rgb(255, 255, 255);
@@ -307,6 +309,19 @@ h2{
     margin-bottom: 40px;
 }
 
+input#name-u{
+    color: #000000;
+    background: transparent; 
+    padding: 12px 20px;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    margin-left: 38px;
+    background-image: url(/imagens/user.png);
+    background-repeat: no-repeat;
+    background-position: left;
+}
+
 input#user_id{
     color: #000000;
     background: transparent; /*cor: rgba(179, 178, 178, 0.372)*/
@@ -342,7 +357,7 @@ label{
 .btn-registro{
     border-style: none;
     position: absolute;
-    bottom: 20px;
+    bottom: 10%;
     left: 50%;
     transform: translateX(-50%);
     padding: 12px 24px;
@@ -354,7 +369,7 @@ label{
     border: 1px solid black;
     font-size: 16px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s;
     /*border-style: none;
     position: fixed;
     top: 87%;
@@ -367,9 +382,8 @@ label{
 }
 
 .btn-registro:hover{
+    box-shadow: 0px 5px 2rem #00000022;
     background: #5555555c;
-    
-    transition: ease 0.3s;
 }
 
 /* closebtn */
@@ -385,6 +399,7 @@ label{
     top: 3%;
     right: 3%;
 }
+
 .close-btn{
     float: right;
     cursor: pointer;
@@ -393,11 +408,11 @@ label{
     padding: 1px 7px;
     border-radius: 50%;
     z-index: 21;
+    transition: all 0.3s; /* ( efeito na saída e na entrada */
 }
 
 .close-btn:hover{
     background: rgba(142, 141, 141, 0.388);
-    transition: ease 0.3s;
 }
 
 .task-title {
@@ -410,6 +425,29 @@ label{
     position: relative;
     top: 10%;
     z-index: 1; 
+}
+
+.pr{
+    margin-top: 19%;
+    text-align: center;
+    color: #5e5e5e6d;
+    cursor: pointer;
+}
+
+.pl{
+    margin-top: 8rem;
+    text-align: center;
+    color: #5e5e5e6d;
+    cursor: pointer;
+}
+
+.plink{
+    color: black;
+    transition: all 0.3s; /* in and out */
+}
+
+.plink:hover{
+    color: #333333a4;
 }
 
 @media (min-width: 1290px){
@@ -479,13 +517,13 @@ label{
         position: absolute;
         top: 3%;
         left: 70%;
+        
         margin-bottom: 2px;
     }
 
     .login-div,
     .registro-div {
         width: 90%;
-        height: auto;
         padding-bottom: 30px;
     }
 
@@ -493,9 +531,6 @@ label{
         min-width: unset;
         min-width: 70%;
         font-size: 1em;
-        position: absolute;
-        top: 87%;
-        padding-bottom: 28px;
     }
 
     #container-btn,
@@ -506,6 +541,14 @@ label{
 
     h2 {
         padding: 15px;
-        font-size: 1.2em;
     }
-}
+
+    .pl{
+        margin-top: 9.8rem;
+    }
+
+    .pr{
+        margin-top: 8.5rem;
+    }
+
+}   

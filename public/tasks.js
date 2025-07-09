@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+/*document.addEventListener('DOMContentLoaded', () => {
   const btnAdicionar = document.getElementById('btn-adicionar');
   const inputTarefa = document.getElementById('input-tarefa');
   const listaTarefas = document.getElementById('lista-tarefas');
@@ -62,4 +62,4 @@ async function deletarTarefa(id, liElement) {
     console.error('Erro ao deletar tarefa:', err);
     alert('Erro ao deletar tarefa');
   }
-}
+} */

@@ -112,7 +112,7 @@ app.patch('/tasks/:id/edit', ensureAuthenticated, async (req, res) => {
       return res.status(404).send('Tarefa não encontrada');
     }
 
-    await task.update({ title });
+    await task.update({ title });   
     console.log("Tarefa atualizada com sucesso");
     res.sendStatus(200);
   } catch (err) {
@@ -130,7 +130,7 @@ app.delete('/tasks/:id/delete', ensureAuthenticated, async (req, res) => {
     const task = await Task.findOne({ where: { id: taskId, userId } });
     if (!task) return res.status(404).send('Tarefa não encontrada');
 
-    await task.destroy();
+    await task.destroy();     
     res.sendStatus(200);
   } catch (err) {
     console.error(err);

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToDo List - Estágio</title>
+    <title>TaskFlow - Estágio</title>
 
     <link rel="stylesheet" href="/style.css">
     <link rel="shortcut icon" href="./imagens/icon.png" type="image/x-icon">
@@ -39,7 +39,8 @@
                                 <input type="password" name="senha" id="pass" class="input-box" placeholder="Introduza sua palavra-passe" minlength="4" maxlength="20" required size="43">
                                 <hr style="width: 70%; margin: auto; margin-right: 150px; margin-left: 40px;" > <!--style="width: 70%; margin: auto; margin-right: 150px;"-->
                         </div>
-                        <button class="btn-registro">Entrar</button>
+                        <button class="btn-registro" id="botao-login">Entrar</button>
+                        <p class="pl">Não tem uma conta? <a href="#" class="plink" onclick="NaoTem()">Cadastre-se</a></p>
                     </form>
                 </div>
             </div>
@@ -53,6 +54,12 @@
                     <hr>
                     <form action="/save" method="post" class="form-R-L">
                         <div style="margin-top: 65px;">
+                            <label for="name-u">Nome completo:</label> <br>
+                                <input type="text" id="name-u" name="utilizador" class="input-box" placeholder="Introduza seu nome" minlength="4" maxlength="60" required size="43"> 
+                                <hr style="width: 70%; margin: auto; margin-right: 150px; margin-left: 40px">
+                        </div>
+
+                        <div style="margin-top: 50px;">
                             <label for="user_id">E-mail:</label> <br>
                                 <input type="text" id="user_id" name="user" class="input-box" placeholder="Introduza seu e-mail" minlength="5" maxlength="60" required size="43"> 
                                 <hr style="width: 70%; margin: auto; margin-right: 150px; margin-left: 40px">
@@ -63,7 +70,8 @@
                                 <input type="password" name="password" id="pass" class="input-box" placeholder="Introduza sua palavra-passe" minlength="4" maxlength="20" required size="43">
                                 <hr style="width: 70%; margin: auto; margin-right: 150px; margin-left: 40px;" > <!--style="width: 70%; margin: auto; margin-right: 150px;"-->
                         </div>
-                        <button class="btn-registro">Entrar</button>
+                        <button class="btn-registro" id="botao-registro">Entrar</button>
+                        <p class="pr">Já tem uma conta? <a href="#" class="plink" onclick="TemConta()">Entre aqui</a></p>
                     </form>
                 </div>
             </div>
@@ -75,7 +83,7 @@
             <h2>To-Do List <img src="/imagens/icon.png" alt="Icon"></h2>
                 <div class="linha">
                     <form id="task-form" action="/tasks/add" method="post">
-                        <input type="text" id="input-todo" name="input" placeholder="Adicione um texto" maxlength="35" size="44">
+                        <input type="text" id="input-todo" name="input" placeholder="Adicione uma nova Tarefa" maxlength="35" size="44">
                         <button type="submit"  id = "btn">Add</button>
                     </form>
                 </div>
