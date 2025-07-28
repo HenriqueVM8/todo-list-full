@@ -23,6 +23,20 @@
     padding: 40px 30px 70px;
     border-radius: 10px;
     z-index: 11;
+
+    /* Animação de entrada */
+    opacity: 0;
+    transform: translateY(10rem);
+    animation-name: appear;
+    animation-duration: 900ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes appear{ /* Animação de entrada */
+    100%{
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .todo h2{

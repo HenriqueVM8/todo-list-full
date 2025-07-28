@@ -22,11 +22,11 @@ connection
 
 
 app.use(session({
-    secret: 'segredoqualquer',        // Troque para algo seguro
+    secret: 'segredoqualquer',  // Troque para algo seguro
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 600000 }        // Sessão expira em 10 minutos
-}));
+    cookie: { maxAge: 600000 } // Sessão expira em 10 minutos
+}));  
 
 // Caminhos para pastas
 app.set('view engine', 'ejs')
@@ -47,7 +47,7 @@ function ensureAuthenticated(req, res, next) {
   if (req.session.user) {
     next(); // Usuário logado, segue em frente
   } else {
-    res.redirect('/login'); // Se não estiver logado, manda pro login
+    res.redirect('/login'); // Se não estiver logado, manda para a rota login
   }
 }
 

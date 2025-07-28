@@ -9,6 +9,7 @@ form.addEventListener("submit", async function (e) {
   const btn = document.getElementById("btn");
   btn.disabled = true;
 
+
   if (value === "") {
     alert("Você precisa escrever algo!");
     btn.disabled = false;
