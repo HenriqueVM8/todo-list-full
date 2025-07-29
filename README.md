@@ -7,17 +7,17 @@
 TaskFlow é uma aplicação web moderna de gerenciamento de tarefas (ToDo List), criada com o objetivo de proporcionar aos usuários uma maneira intuitiva, segura e eficiente de organizar seu dia a dia. Com foco em usabilidade, performance e segurança, o projeto oferece uma interface limpa, autenticação robusta e armazenamento persistente.
 
 ### 🚀 Funcionalidades
- ✅ Criação, edição e exclusão de tarefas
+ - ✅ Criação, edição e exclusão de tarefas
 
- 🔒 Autenticação de usuários (login e senha)
+ - 🔒 Autenticação de usuários (login e senha)
 
- 📦 Banco de dados MySQL com Sequelize
+ - 📦 Banco de dados MySQL com Sequelize
 
- 👤 Tarefas associadas a usuários únicos
+ - 👤 Tarefas associadas a usuários únicos
 
- 🍪 Sistema de cookies para gerenciamento de sessões
+ - 🍪 Sistema de cookies para gerenciamento de sessões
 
- ⚙️ Backend robusto em Node.js
+ - ⚙️ Backend robusto em Node.js
 <br>
 
 ## 🍪 Sistema de Cookies
