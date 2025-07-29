@@ -37,7 +37,7 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-// Middleware para tornar o usuário disponível nas views (opcional)
+// Middleware - usuário da sessão acessível em todas as views e rotas (opcional)
 app.use((req, res, next) => {
     res.locals.user = req.session.user || null;
     next();
