@@ -22,7 +22,7 @@ connection
 
 
 app.use(session({
-    secret: 'segredoqualquer',  // Troque para algo seguro
+    secret: 'segredoqualquer',
     resave: false,
     saveUninitialized: false,
     cookie: { maxAge: 600000 } // Sessão expira em 10 minutos

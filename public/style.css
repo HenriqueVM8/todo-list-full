@@ -26,7 +26,7 @@
 
     /* Animação de entrada */
     opacity: 0;
-    transform: translateY(10rem);
+    transform: translateY(20rem);
     animation-name: appear;
     animation-duration: 900ms;
     animation-fill-mode: forwards;
@@ -482,6 +482,10 @@ label{
 
     .todo {
         padding: 20px 15px 50px;
+    }
+
+    .todo h2{
+        font-size: 1.2rem;
     }
 
     .linha {
