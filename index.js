@@ -138,7 +138,7 @@ app.delete('/tasks/:id/delete', ensureAuthenticated, async (req, res) => {
   }
 });
 
-// Alternar status da tarefa (done)
+// Alternar status da tarefa
 app.patch('/tasks/:id/toggle', ensureAuthenticated, async (req, res) => {
   const taskId = req.params.id;
   const userId = req.session.user.id;
